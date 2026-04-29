@@ -1,6 +1,6 @@
 // Set this to your deployed Render URL (e.g., "https://depression-fyp-backend.onrender.com/api")
 // Leave as "http://127.0.0.1:5000/api" for local development.
-const API_BASE = "http://127.0.0.1:5000/api";
+const API_BASE = "https://najmarazzaq-depression-api.hf.space/api";
 const TOKEN_KEY = "depression_app_token";
 
 function getToken() {
