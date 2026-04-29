@@ -17,17 +17,21 @@ ENV HOME=/home/user \
     PYTHONUNBUFFERED=1 \
     FLASK_ENV=production
 
-# Set working directory
+# Set working directory to the home directory
 WORKDIR $HOME/app
 
-# Copy requirements first to leverage Docker cache
-COPY --chown=user requirements.txt .
+# Copy the backend requirements first to leverage Docker cache
+COPY --chown=user backend/requirements.txt ./backend/requirements.txt
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r backend/requirements.txt
 
-# Copy the rest of the application
-COPY --chown=user . .
+# Copy the backend and models folders
+COPY --chown=user backend ./backend
+COPY --chown=user models ./models
+
+# Change working directory to backend where run.py is
+WORKDIR $HOME/app/backend
 
 # Expose port 7860 (required by Hugging Face Docker Spaces)
 EXPOSE 7860
