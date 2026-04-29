@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D-Mind | Dashboard</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body data-page="landing">
+  <div class="gradient-flow" aria-hidden="true"></div>
+  <div class="bg-particles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="page-shell landing-shell">
+    <header class="landing-header">
+      <div class="logo-area">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+          <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
+          <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4" />
+          <path d="M17.599 6.5a3 3 0 0 0 .399-1.375" />
+          <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" />
+          <path d="M3.477 10.896a4 4 0 0 1 .585-.396" />
+          <path d="M19.938 10.5a4 4 0 0 1 .585.396" />
+          <path d="M6 18a4 4 0 0 1-1.967-.516" />
+          <path d="M19.967 17.484A4 4 0 0 1 18 18" />
+        </svg>
+        <span class="logo-text">D-Mind</span>
+      </div>
+      <div class="header-actions">
+        <a href="login.html" class="header-link">Login</a>
+      </div>
+    </header>
+
+    <main class="landing-main">
+      <div class="secure-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        Confidential & Secure
+      </div>
+
+      <h1 class="landing-title">D-Mind: Depression<br>Detection System</h1>
+      <p class="landing-subtitle">Detect depression from video, talk with a support chatbot, and track emotional
+        progress over time.</p>
+
+      <div class="info-banner">
+        <span class="bulb-icon"></span> You can use all features without login, but creating an account allows storing
+        your progress history.
+      </div>
+
+      <div class="landing-actions">
+        <a href="register.html" class="btn btn-primary">Register</a>
+        <a href="login.html" class="btn btn-secondary">Login</a>
+        <button id="guest-login-btn" class="btn btn-outline">Continue Without Login</button>
+      </div>
+
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+              </path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h3>Video Analysis</h3>
+          <p>Upload or record video for AI-powered depression detection analysis</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3>Support Chatbot</h3>
+          <p>Get 24/7 support with AI-powered conversations about stress and wellness</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+          </div>
+          <h3>Track Progress</h3>
+          <p>Visualize your emotional health journey with detailed analytics</p>
+        </div>
+      </div>
+    </main>
+    <footer class="app-footer">
+      <p>Copyrights reserved 2026 &copy; D-Mind System</p>
+    </footer>
+  </div>
+  <script>
+    document.getElementById('guest-login-btn').addEventListener('click', () => {
+      localStorage.setItem('guest_mode', 'true');
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Mindful Support</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body data-page="login">
+    <div class="gradient-flow" aria-hidden="true"></div>
+    <div class="bg-particles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="page-shell auth-shell">
+      <section class="auth-card">
+        <h1>Welcome back</h1>
+        <p class="subtitle">Sign in to continue your wellness check-in.</p>
+
+        <form id="login-form" class="form-stack">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com" required />
+
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Your password" required />
+
+          <button id="login-btn" type="submit">Sign In</button>
+        </form>
+
+        <p class="status-row">
+          New here?
+          <a href="register.html">Create account</a>
+        </p>
+      </section>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/auth-pages.js"></script>
+  </body>
+</html>

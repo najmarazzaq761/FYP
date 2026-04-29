@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Mindful Support</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
+  <body data-page="dashboard">
+    <div class="gradient-flow" aria-hidden="true"></div>
+    <div class="bg-particles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="page-shell">
+      <nav id="navbar-root"></nav>
+
+      <main class="content-grid">
+        <section id="prediction-section" class="panel">
+          <h2>Depression Prediction</h2>
+          <p class="subtitle">Use webcam recording or upload a video for analysis.</p>
+          <div class="prediction-cards-container">
+            <div class="pred-card" id="upload-card">
+              <div class="pred-icon-circle">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              </div>
+              <h3>Upload Video</h3>
+              <input id="upload-video" type="file" accept="video/*" class="hidden" />
+              <button class="btn btn-outline" id="trigger-upload-btn">Select Video File</button>
+            </div>
+            
+            <div class="pred-card" id="record-card">
+              <div class="pred-icon-circle">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+              </div>
+              <h3>Record Video</h3>
+              <button class="btn btn-outline" id="start-camera-btn">Start Camera</button>
+            </div>
+          </div>
+
+          <div class="webcam-container hidden" id="webcam-container">
+            <video id="webcam-preview" autoplay muted playsinline></video>
+            <div class="webcam-controls">
+              <button class="btn btn-primary hidden" id="record-btn">Start Recording</button>
+              <button class="btn btn-danger hidden" id="stop-btn">Stop Recording</button>
+            </div>
+          </div>
+
+          <div class="file-status-bar hidden" id="file-status-bar">
+            <div class="file-info">
+              <p class="file-name">Selected: <span id="selected-file-name">none</span></p>
+              <p class="file-size" id="selected-file-size">Size: 0 MB</p>
+            </div>
+            <button class="btn btn-primary" id="analyze-video-btn">Analyze Video</button>
+          </div>
+
+          <div id="prediction-result" class="status-box status-default hidden" style="margin-top: 1.5rem;">
+            <p class="result-title">Prediction Result</p>
+            <p class="result-main">No analysis yet</p>
+            <p class="result-sub">We will show your result and confidence here.</p>
+          </div>
+        </section>
+
+        <section id="chatbot-section" class="panel hidden">
+          <h2>Chatbot</h2>
+          <p class="subtitle">Share your thoughts and receive supportive responses.</p>
+          <div id="chat-window" class="chat-window"></div>
+          <div class="chat-composer">
+            <textarea id="chat-input" rows="2" placeholder="How are you feeling today?"></textarea>
+            <button id="send-chat-btn" type="button">Send</button>
+          </div>
+        </section>
+
+        <section id="history-section" class="panel hidden">
+          <h2>History</h2>
+          <p class="subtitle">View your prediction trend over time.</p>
+          <canvas id="history-chart"></canvas>
+          <div id="history-list" class="history-list"></div>
+        </section>
+      </main>
+      <footer class="app-footer">
+        <p>Copyrights reserved 2026 &copy; D-Mind System</p>
+      </footer>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

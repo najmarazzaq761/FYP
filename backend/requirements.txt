@@ -1,0 +1,24 @@
+Flask
+Flask-Cors
+Flask-SQLAlchemy
+Flask-Bcrypt
+Flask-JWT-Extended
+python-dotenv
+groq
+opencv-python
+numpy
+librosa
+scikit-learn
+scipy
+moviepy
+timm
+einops
+
+# Deployment dependencies
+gunicorn
+psycopg2-binary
+
+# ML dependencies missing from file
+torch
+torchvision
+torchaudio
