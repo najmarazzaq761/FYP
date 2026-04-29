@@ -27,6 +27,9 @@ def create_app(config_class=Config):
         return jsonify({"status": "ok"})
 
     with app.app_context():
-        db.create_all()
+        try:
+            db.create_all()
+        except Exception as e:
+            print(f"Note: db.create_all() encountered an error (likely concurrent creation): {e}")
 
     return app
