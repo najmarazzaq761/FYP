@@ -18,7 +18,8 @@ einops
 gunicorn
 psycopg2-binary
 
-# ML dependencies missing from file
+# PyTorch CPU version (Crucial for free tier RAM/Size limits)
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch
 torchvision
 torchaudio
