@@ -73,10 +73,10 @@ class DepressionPredictor:
                 output = output[0]
             probability = torch.sigmoid(output).item()
         
-        if probability <= 0.60:
+        if probability <= 0.65:
             label = 'Normal'
-        elif probability <= 0.70:
-            label = 'Mild Depression'
+        # elif probability <= 0.70:
+        #     label = 'Mild Depression'
         else:
             label = 'Depressed'
         
