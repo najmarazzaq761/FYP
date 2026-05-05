@@ -13,6 +13,14 @@ scipy
 moviepy
 timm
 einops
+joblib
+langchain
+langchain-groq
+langchain-community
+langchain-huggingface
+chromadb
+pypdf
+sentence-transformers
 
 # Deployment dependencies
 gunicorn

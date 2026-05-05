@@ -8,7 +8,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 from models.feature_extractor import FeatureExtractor
 from models.predictor import get_predictor
 
-def predict_from_video_bytes(video_bytes: bytes, ext: str = '.webm') -> dict:
+def predict_from_video_bytes(video_bytes: bytes, ext: str = '.webm', gender: int = 1) -> dict:
     if not video_bytes:
         raise ValueError("Video bytes are empty")
 
@@ -17,11 +17,17 @@ def predict_from_video_bytes(video_bytes: bytes, ext: str = '.webm') -> dict:
         tmp_video.write(video_bytes)
 
     try:
+        from moviepy.editor import VideoFileClip
+        # Calculate duration automatically
+        clip = VideoFileClip(tmp_video_path)
+        duration = clip.duration
+        clip.close()
+
         extractor = FeatureExtractor()
         features = extractor.extract_features_from_video(tmp_video_path)
         
         predictor = get_predictor()
-        prediction = predictor.predict(features['audio'], features['visual'])
+        prediction = predictor.predict(features['audio'], features['visual'], gender, duration)
         
         return prediction
     finally:

@@ -28,7 +28,14 @@ def predict():
         ext = os.path.splitext(video.filename)[1] if video.filename else ".webm"
         if not ext:
             ext = ".webm"
-        prediction = predict_from_video_bytes(video_bytes, ext)
+            
+        gender_str = request.form.get("gender", "1")
+        try:
+            gender = int(gender_str)
+        except ValueError:
+            gender = 1
+            
+        prediction = predict_from_video_bytes(video_bytes, ext, gender)
     except ValueError as exc:
         print(f"400 ERROR ValueError: {str(exc)}")
         return jsonify({"error": str(exc)}), 400

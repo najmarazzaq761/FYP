@@ -178,6 +178,13 @@ async function sendVideoForPrediction(videoData, sourceType, filename) {
     const formData = new FormData();
     formData.append("video", videoData, filename);
     formData.append("source_type", sourceType);
+    
+    // Add gender to the payload
+    const genderSelect = document.getElementById("gender-select");
+    if (genderSelect) {
+      formData.append("gender", genderSelect.value);
+    }
+    
     const data = await apiRequest("/predict", {
       method: "POST",
       headers: authHeader(),

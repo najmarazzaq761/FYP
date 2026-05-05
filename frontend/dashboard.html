@@ -21,6 +21,15 @@
         <section id="prediction-section" class="panel">
           <h2>Depression Prediction</h2>
           <p class="subtitle">Use webcam recording or upload a video for analysis.</p>
+          
+          <div class="form-group" style="margin-bottom: 2rem; max-width: 300px;">
+            <label for="gender-select" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text);">Subject Gender</label>
+            <select id="gender-select" class="form-control" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); background-color: var(--surface); color: var(--text); font-size: 1rem;">
+              <option value="1">Male</option>
+              <option value="0">Female</option>
+            </select>
+          </div>
+
           <div class="prediction-cards-container">
             <div class="pred-card" id="upload-card">
               <div class="pred-icon-circle">

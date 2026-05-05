@@ -53,3 +53,4 @@ logs/
 # Temp media storage
 .tempmediaStorage/
 temp/
+backend/chroma_db

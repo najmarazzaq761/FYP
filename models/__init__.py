@@ -1,1 +1,1 @@
-from .depressiondetector import DepressionDetector
+# Initialize models package

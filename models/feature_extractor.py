@@ -26,19 +26,18 @@ class FeatureExtractor:
         chroma = librosa.feature.chroma_stft(y=y, sr=sr) # 12 features
         rms = librosa.feature.rms(y=y) # 1 feature
         
-        # Combine features (13 + 4 + 1 + 12 = 30 features)
-        features = np.concatenate([
-            mfccs.mean(axis=1),
-            [spectral_centroid.mean(), spectral_rolloff.mean(), 
-             spectral_bandwidth.mean(), zero_crossing_rate.mean(),
-             rms.mean()],
-            chroma.mean(axis=1)
+        # Combine features (13 + 1 + 1 + 1 + 1 + 1 + 12 = 30 features)
+        features = np.vstack([
+            mfccs,
+            spectral_centroid, spectral_rolloff,
+            spectral_bandwidth, zero_crossing_rate,
+            rms,
+            chroma
         ])
         
         # Pad or truncate to exactly 25
-        if len(features) < 25:
-            features = np.pad(features, (0, 25 - len(features)))
-        return features[:25]  # Return 25-dim features
+        features = features[:25, :]
+        return features.T  # Return (T, 25) sequence
     
     def extract_visual_features(self, video_path):
         """Extract facial landmarks (68 points x 2 = 136-dim)"""
@@ -75,16 +74,9 @@ class FeatureExtractor:
         cap.release()
         
         if len(landmarks_list) == 0:
-            return np.zeros((300, 136))
+            return np.zeros((1, 136))
         
-        # Pad or truncate to fixed length
         landmarks_array = np.array(landmarks_list)
-        if len(landmarks_array) < 300:
-            pad = 300 - len(landmarks_array)
-            landmarks_array = np.pad(landmarks_array, ((0, pad), (0, 0)))
-        else:
-            landmarks_array = landmarks_array[:300]
-        
         return landmarks_array
     
     def extract_features_from_video(self, video_path):
@@ -104,7 +96,7 @@ class FeatureExtractor:
                 audio_features = self.extract_audio_features(tmp_audio_path)
             else:
                 # Fallback if video has no audio
-                audio_features = np.zeros(25)
+                audio_features = np.zeros((1, 25))
             video_clip.close()
         finally:
             if os.path.exists(tmp_audio_path):
@@ -113,6 +105,6 @@ class FeatureExtractor:
         visual_features = self.extract_visual_features(video_path)
         
         return {
-            'audio': audio_features.reshape(1, -1),
-            'visual': visual_features.reshape(1, 300, 136)
+            'audio': audio_features,
+            'visual': visual_features
         }
