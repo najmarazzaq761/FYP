@@ -1,0 +1,14 @@
+[build]
+  # This tells Netlify that your website files are inside the 'frontend' folder,
+  # not the main root folder.
+  publish = "frontend"
+  
+  # Leave the command empty because this is plain HTML/CSS/JS with no build step
+  command = ""
+
+[[redirects]]
+  # If you ever use frontend routing (like React/Vue), this prevents 404s on refresh
+  # Though for plain HTML, it acts as a good fallback to index.html
+  from = "/*"
+  to = "/index.html"
+  status = 200
