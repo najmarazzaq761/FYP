@@ -26,9 +26,13 @@ COPY --chown=user backend/requirements.txt ./backend/requirements.txt
 # Install Python dependencies
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
-# Copy the backend and models folders
+# Copy the backend, models, and rag_docs folders
 COPY --chown=user backend ./backend
 COPY --chown=user models ./models
+COPY --chown=user rag_docs ./rag_docs
+
+# Run the RAG document ingestion script to build the chroma_db
+RUN python backend/scripts/ingest_docs.py
 
 # Change working directory to backend where run.py is
 WORKDIR $HOME/app/backend
