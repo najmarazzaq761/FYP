@@ -17,7 +17,7 @@ def predict_from_video_bytes(video_bytes: bytes, ext: str = '.webm', gender: int
         tmp_video.write(video_bytes)
 
     try:
-        from moviepy.editor import VideoFileClip
+        from moviepy import VideoFileClip
         # Calculate duration automatically
         clip = VideoFileClip(tmp_video_path)
         duration = clip.duration

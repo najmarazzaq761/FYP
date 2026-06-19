@@ -21,6 +21,8 @@ langchain-huggingface
 chromadb
 pypdf
 sentence-transformers
+transformers
+
 
 # Deployment dependencies
 gunicorn
