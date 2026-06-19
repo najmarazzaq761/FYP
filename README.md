@@ -1,3 +1,12 @@
+---
+title: Depression API
+emoji: 🧠
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
+
 # Depression Detection Web Application
 
 Production-ready full-stack starter with modular Flask backend and responsive neon frontend.
