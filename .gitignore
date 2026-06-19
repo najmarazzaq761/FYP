@@ -54,3 +54,10 @@ logs/
 .tempmediaStorage/
 temp/
 backend/chroma_db
+
+# Large Model Weights (MentalBERT local cache)
+mental_bert_02/
+
+# Package manager and deployment environments
+node_modules/
+.netlify/

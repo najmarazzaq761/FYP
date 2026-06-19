@@ -444,6 +444,17 @@ video {
   box-shadow: 0 0 20px rgba(255, 107, 154, 0.25);
 }
 
+.status-anxiety {
+  border-color: rgba(255, 180, 50, 0.65);
+  box-shadow: 0 0 20px rgba(255, 180, 50, 0.25);
+}
+
+.status-suicidal {
+  border-color: rgba(255, 30, 80, 0.85);
+  box-shadow: 0 0 25px rgba(255, 30, 80, 0.45);
+  animation: pulseSuicidal 2s infinite ease-in-out;
+}
+
 .status-error {
   border-color: rgba(255, 107, 154, 0.65);
 }
@@ -451,6 +462,18 @@ video {
 .status-default {
   border-color: rgba(162, 155, 254, 0.45);
 }
+
+@keyframes pulseSuicidal {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 30, 80, 0.45);
+    border-color: rgba(255, 30, 80, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(255, 30, 80, 0.75);
+    border-color: rgba(255, 30, 80, 1);
+  }
+}
+
 
 .chat-window {
   height: 330px;
@@ -1153,4 +1176,64 @@ video {
 }
 .webcam-controls button {
   margin: 0 0.5rem;
+}
+
+/* ── Prediction Sub-tabs ─────────────────────────────────── */
+.pred-subtab-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(162, 155, 254, 0.2);
+  padding-bottom: 0;
+}
+
+.pred-subtab {
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.1rem;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid transparent;
+  border-bottom: none;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: none;
+  position: relative;
+  bottom: -1px;
+}
+
+.pred-subtab:hover {
+  background: rgba(162, 155, 254, 0.1);
+  color: var(--text);
+  transform: none;
+  box-shadow: none;
+}
+
+.pred-subtab.active {
+  background: var(--glass);
+  color: var(--accent);
+  border-color: rgba(162, 155, 254, 0.3);
+  border-bottom: 1px solid var(--glass);
+  box-shadow: 0 -2px 12px rgba(108, 92, 231, 0.2);
+}
+
+.pred-subtab-content {
+  padding-top: 0.5rem;
+}
+
+/* btn-danger for stop recording */
+.btn-danger {
+  background: linear-gradient(120deg, #bf1d45, #ff6b9a);
+  color: #fff;
+  border: none;
+  width: auto;
+  padding: 0.65rem 1.4rem;
+}
+.btn-danger:hover {
+  box-shadow: 0 0 18px rgba(255, 107, 154, 0.55);
 }

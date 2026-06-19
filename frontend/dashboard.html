@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard | Mindful Support</title>
+    <title>Dashboard | D-Mind</title>
+    <meta name="description" content="D-Mind dashboard for mental health classification via text or video analysis." />
     <link rel="stylesheet" href="css/main.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -18,60 +19,109 @@
       <nav id="navbar-root"></nav>
 
       <main class="content-grid">
+
+        <!-- ═══════════════════════════════════════════
+             PREDICTION SECTION — text + video sub-tabs
+             ═══════════════════════════════════════════ -->
         <section id="prediction-section" class="panel">
-          <h2>Depression Prediction</h2>
-          <p class="subtitle">Use webcam recording or upload a video for analysis.</p>
-          
-          <div class="form-group" style="margin-bottom: 2rem; max-width: 300px;">
-            <label for="gender-select" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text);">Subject Gender</label>
-            <select id="gender-select" class="form-control" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); background-color: var(--surface); color: var(--text); font-size: 1rem;">
-              <option value="1">Male</option>
-              <option value="0">Female</option>
-            </select>
+          <h2>Mental Health Prediction</h2>
+          <p class="subtitle">Choose a method below to analyze your mental health state.</p>
+
+          <!-- Sub-tab switcher -->
+          <div class="pred-subtab-bar">
+            <button class="pred-subtab active" id="subtab-text-btn" data-subtab="text">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              Text Analysis
+            </button>
+            <button class="pred-subtab" id="subtab-video-btn" data-subtab="video">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+              Video Analysis
+            </button>
           </div>
 
-          <div class="prediction-cards-container">
-            <div class="pred-card" id="upload-card">
-              <div class="pred-icon-circle">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <!-- ── TEXT PREDICTION PANEL ── -->
+          <div id="subtab-text" class="pred-subtab-content">
+            <div class="form-group" style="margin-top:1.2rem; margin-bottom:1.2rem;">
+              <label for="feelings-text" style="display:block; margin-bottom:0.5rem; font-weight:500; color:#ddd6ff;">
+                How are you feeling today?
+              </label>
+              <textarea
+                id="feelings-text"
+                rows="6"
+                placeholder="Write down your thoughts, feelings, or a recent journal entry (e.g., 'I have been feeling really exhausted lately and everything feels like a chore...')"
+                style="width:100%; border-radius:12px; padding:1rem; font-family:inherit; font-size:1rem; resize:vertical;"
+              ></textarea>
+              <div id="char-counter" style="text-align:right; font-size:0.82rem; color:var(--muted); margin-top:0.4rem;">0 characters</div>
+            </div>
+            <div style="margin-bottom:1.5rem;">
+              <button class="btn btn-primary" id="analyze-text-btn" style="width:auto; padding:0.75rem 2rem;">Analyze Text</button>
+            </div>
+
+            <div id="text-prediction-result" class="status-box status-default hidden">
+              <p class="result-title">Text Prediction Result</p>
+              <p class="result-main">No analysis yet</p>
+              <p class="result-sub">We will show your result and confidence here.</p>
+            </div>
+          </div>
+
+          <!-- ── VIDEO PREDICTION PANEL ── -->
+          <div id="subtab-video" class="pred-subtab-content hidden">
+            <!-- Gender selector -->
+            <div class="form-group" style="margin-top:1.2rem; margin-bottom:1.5rem; max-width:280px;">
+              <label for="gender-select" style="display:block; margin-bottom:0.5rem; font-weight:500; color:#ddd6ff;">Subject Gender</label>
+              <select id="gender-select" style="width:100%; padding:0.75rem; border-radius:8px; border:1px solid var(--border); background-color:rgba(16,11,30,0.72); color:var(--text); font-size:1rem;">
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+              </select>
+            </div>
+
+            <!-- Upload / Record cards -->
+            <div class="prediction-cards-container">
+              <div class="pred-card" id="upload-card">
+                <div class="pred-icon-circle">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <h3>Upload Video</h3>
+                <input id="upload-video" type="file" accept="video/*" class="hidden" />
+                <button class="btn btn-outline" id="trigger-upload-btn">Select Video File</button>
               </div>
-              <h3>Upload Video</h3>
-              <input id="upload-video" type="file" accept="video/*" class="hidden" />
-              <button class="btn btn-outline" id="trigger-upload-btn">Select Video File</button>
-            </div>
-            
-            <div class="pred-card" id="record-card">
-              <div class="pred-icon-circle">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+
+              <div class="pred-card" id="record-card">
+                <div class="pred-icon-circle">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                </div>
+                <h3>Record Video</h3>
+                <button class="btn btn-outline" id="start-camera-btn">Start Camera</button>
               </div>
-              <h3>Record Video</h3>
-              <button class="btn btn-outline" id="start-camera-btn">Start Camera</button>
             </div>
-          </div>
 
-          <div class="webcam-container hidden" id="webcam-container">
-            <video id="webcam-preview" autoplay muted playsinline></video>
-            <div class="webcam-controls">
-              <button class="btn btn-primary hidden" id="record-btn">Start Recording</button>
-              <button class="btn btn-danger hidden" id="stop-btn">Stop Recording</button>
+            <!-- Webcam live preview -->
+            <div class="webcam-container hidden" id="webcam-container">
+              <video id="webcam-preview" autoplay muted playsinline></video>
+              <div class="webcam-controls">
+                <button class="btn btn-primary hidden" id="record-btn">Start Recording</button>
+                <button class="btn btn-danger hidden" id="stop-btn">Stop Recording</button>
+              </div>
             </div>
-          </div>
 
-          <div class="file-status-bar hidden" id="file-status-bar">
-            <div class="file-info">
-              <p class="file-name">Selected: <span id="selected-file-name">none</span></p>
-              <p class="file-size" id="selected-file-size">Size: 0 MB</p>
+            <!-- Selected file status bar -->
+            <div class="file-status-bar hidden" id="file-status-bar">
+              <div class="file-info">
+                <p class="file-name">Selected: <span id="selected-file-name">none</span></p>
+                <p class="file-size" id="selected-file-size">Size: 0 MB</p>
+              </div>
+              <button class="btn btn-primary" id="analyze-video-btn">Analyze Video</button>
             </div>
-            <button class="btn btn-primary" id="analyze-video-btn">Analyze Video</button>
-          </div>
 
-          <div id="prediction-result" class="status-box status-default hidden" style="margin-top: 1.5rem;">
-            <p class="result-title">Prediction Result</p>
-            <p class="result-main">No analysis yet</p>
-            <p class="result-sub">We will show your result and confidence here.</p>
+            <div id="video-prediction-result" class="status-box status-default hidden" style="margin-top:1.5rem;">
+              <p class="result-title">Video Prediction Result</p>
+              <p class="result-main">No analysis yet</p>
+              <p class="result-sub">We will show your result and confidence here.</p>
+            </div>
           </div>
         </section>
 
+        <!-- ═══════════════ CHATBOT ═══════════════ -->
         <section id="chatbot-section" class="panel hidden">
           <h2>Chatbot</h2>
           <p class="subtitle">Share your thoughts and receive supportive responses.</p>
@@ -82,12 +132,14 @@
           </div>
         </section>
 
+        <!-- ═══════════════ HISTORY ═══════════════ -->
         <section id="history-section" class="panel hidden">
           <h2>History</h2>
           <p class="subtitle">View your prediction trend over time.</p>
           <canvas id="history-chart"></canvas>
           <div id="history-list" class="history-list"></div>
         </section>
+
       </main>
       <footer class="app-footer">
         <p>Copyrights reserved 2026 &copy; D-Mind System</p>

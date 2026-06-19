@@ -109,14 +109,23 @@ class FinalDepressionPredictor:
         """
         
         # 1. Feature Aggregation (Mean + Std over time)
-        # Ensure we have at least 1 frame
-        if len(audio_seq) == 0:
-            audio_seq = np.zeros((1, 25))
-        if len(visual_seq) == 0:
-            visual_seq = np.zeros((1, 136))
+        if len(audio_seq) == 0 or np.all(audio_seq == 0):
+            audio_ext = self.audio_scaler.mean_.copy().reshape(1, -1)
+        else:
+            a_mean = np.mean(audio_seq, axis=0)
+            a_std = np.std(audio_seq, axis=0)
+            if np.all(a_std == 0):
+                a_std = self.audio_scaler.mean_[25:].copy()
+            audio_ext = np.hstack([a_mean, a_std]).reshape(1, -1)
             
-        audio_ext = np.hstack([np.mean(audio_seq, axis=0), np.std(audio_seq, axis=0)]).reshape(1, -1)
-        visual_ext = np.hstack([np.mean(visual_seq, axis=0), np.std(visual_seq, axis=0)]).reshape(1, -1)
+        if len(visual_seq) == 0 or np.all(visual_seq == 0):
+            visual_ext = self.visual_scaler.mean_.copy().reshape(1, -1)
+        else:
+            v_mean = np.mean(visual_seq, axis=0)
+            v_std = np.std(visual_seq, axis=0)
+            if np.all(v_std == 0):
+                v_std = self.visual_scaler.mean_[136:].copy()
+            visual_ext = np.hstack([v_mean, v_std]).reshape(1, -1)
 
         # 2. Scale Features
         audio_norm = self.audio_scaler.transform(audio_ext)

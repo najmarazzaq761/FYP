@@ -26,6 +26,10 @@ COPY --chown=user backend/requirements.txt ./backend/requirements.txt
 # Install Python dependencies
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
+# Pre-download and cache the sequence classification model to avoid first-run timeout
+RUN python -c "from transformers import AutoTokenizer, AutoModelForSequenceClassification; AutoTokenizer.from_pretrained('ourafla/mental-health-bert-finetuned'); AutoModelForSequenceClassification.from_pretrained('ourafla/mental-health-bert-finetuned')"
+
+
 # Copy the backend, models, and rag_docs folders
 COPY --chown=user backend ./backend
 COPY --chown=user models ./models
