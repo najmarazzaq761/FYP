@@ -1,7 +1,8 @@
-// Set this to your deployed Render URL (e.g., "https://depression-fyp-backend.onrender.com/api")
-// Leave as "http://127.0.0.1:5000/api" for local development.
-//const API_BASE = "https://najmarazzaq-depression-api.hf.space/api";
-const API_BASE = "http://127.0.0.1:5000/api";
+// Automatically switch between local and production Hugging Face Spaces API URL based on environment
+const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.hostname === "")
+  ? "http://127.0.0.1:5000/api"
+  : "https://najmarazzaq-depression-api.hf.space/api";
+
 
 const TOKEN_KEY = "depression_app_token";
 
