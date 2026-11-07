@@ -1,10 +1,10 @@
-# 🧠 D-Mind: Depression Detection System
+# D-Mind: Depression Detection System
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![Flask](https://img.shields.io/badge/Backend-Flask-black)
 ![PyTorch](https://img.shields.io/badge/Deep%20Learning-PyTorch-red)
 ![BERT](https://img.shields.io/badge/NLP-BERT-orange)
-![SQLite](https://img.shields.io/badge/Database-SQLite-lightgrey)
+![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue)
 
 **D-Mind** is an AI-powered web application for early mental health assessment. It combines text-based analysis, video/audio-based analysis, an AI chatbot and prediction history tracking in one platform, to promote mental health awareness and early intervention.
 
@@ -18,6 +18,7 @@
 - [Objectives](#-objectives)
 - [Features](#-features)
 - [System Workflow](#-system-workflow)
+- [Datasets](#-datasets)
 - [Models](#-models)
   - [Text Model (BERT)](#1-text-based-depression-detection-bert)
   - [Video Model (Gated Multimodal Fusion)](#2-video-based-depression-detection-gated-multimodal-fusion)
@@ -48,11 +49,11 @@ Early detection of depression and anxiety is difficult because many people do no
 
 | Feature | Description |
 |---|---|
-| 📝 **Text analysis** | BERT-based classifier labels text as *Normal*, *Depression*, *Anxiety* or *Suicidal*, with a confidence score |
-| 🎥 **Video/audio analysis** | Gated Multimodal Fusion model combines speech and facial features to predict *Depressed* / *Not Depressed* |
-| 💬 **AI chatbot** | Emotional-support chatbot powered by the Groq API and a Meta Llama model |
-| 📈 **History tracking** | Predictions are stored per user and visualized over time |
-| 🔐 **User accounts** | Registration and login, with user data stored in SQLite |
+| **Text analysis** | BERT-based classifier labels text as *Normal*, *Depression*, *Anxiety* or *Suicidal*, with a confidence score |
+|  **Video/audio analysis** | Gated Multimodal Fusion model combines speech and facial features to predict *Depressed* / *Not Depressed* |
+| **AI chatbot** | Emotional-support chatbot powered by the Groq API and a Meta Llama model |
+| **History tracking** | Predictions are stored per user and visualized over time |
+| **User accounts** | Registration and login, with user data stored in PostgreSQL |
 
 ## 🔄 System Workflow
 
@@ -66,14 +67,27 @@ Early detection of depression and anxiety is difficult because many people do no
 
 ---
 
+## 📊 Datasets
+
+| Dataset | Modality | Number of Samples | Link / Source |
+| :--- | :--- | :--- | :--- |
+| **D-Vlog** (Depression Vlog) | Video (Audio + Visual) | **961** vlogs (from 816 speakers) | [Original Paper / Kaggle](https://www.kaggle.com/datasets/roohanis/d-vlog) |
+| **Mental Health Text Classification** | Text | **49,612** samples | [Hugging Face](https://huggingface.co/datasets/ourafla/Mental-Health_Text-Classification_Dataset) |
+
+> **Note:** The D-Vlog dataset is not hosted on Hugging Face; it is available via the original research paper or Kaggle mirrors. The text dataset is publicly downloadable from Hugging Face.
+
+---
+
 ## 🤖 Models
 
 ### 1. Text-Based Depression Detection (BERT)
 
-- **Model:** BERT (Bidirectional Encoder Representations from Transformers), a transformer model that understands the context of whole sentences.
+- **Model:** BERT (`bert-base-uncased`), a transformer model that understands the context of whole sentences (110M parameters, 12 layers, 12 attention heads).
 - **Task:** Multi-class text classification
 - **Classes:** `Normal`, `Depression`, `Anxiety`, `Suicidal`
 - **Pipeline:** user text → preprocessing → BERT tokenizer → contextual analysis → classification with confidence score
+- **Training:** 5 epochs, AdamW (lr=2e-5), batch size 16, weighted CrossEntropyLoss, T4 GPU (~25 mins)
+- **Dataset:** Mental Health Text Classification Dataset (~49,000 samples)
 
 ### 2. Video-Based Depression Detection (Gated Multimodal Fusion)
 
@@ -197,8 +211,8 @@ combined = Concat([audio_embedding * gate, visual_embedding * (1 - gate), gender
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/najmarazzaq761/FYP.git
+cd https://github.com/najmarazzaq761/FYP
 
 # 2. Create and activate a virtual environment
 python -m venv venv
@@ -254,8 +268,4 @@ Then open **http://127.0.0.1:5000** in your browser.
 | Zainab Azhar | FA22-BCS-158 |
 | Najma | FA22-BCS-171 |
 
----
 
-## 📄 License
-
-Add your license here (for example, MIT).
