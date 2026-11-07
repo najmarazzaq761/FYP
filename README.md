@@ -103,46 +103,7 @@ The model uses pre-extracted features from the **D-Vlog** dataset, which also he
 
 #### Architecture
 
-```mermaid
-flowchart TD
-    A[Input Video] --> B[Audio Features<br/>25-dim LLDs]
-    A --> C[Visual Features<br/>136-dim facial landmarks]
-    A --> M[Metadata<br/>gender + duration]
-
-    B --> D[Audio Branch<br/>2-layer MLP]
-    C --> E[Visual Branch<br/>3-layer MLP]
-
-    D --> F[Audio embedding<br/>64-dim]
-    E --> G[Visual embedding<br/>64-dim]
-
-    F --> H{{Gate<br/>Sigmoid of Linear on concat}}
-    G --> H
-
-    F --> I[audio × gate]
-    G --> J[visual × 1 − gate]
-    H --> I
-    H --> J
-
-    I --> K[Concatenate<br/>+ gender + duration]
-    J --> K
-    M --> K
-
-    K --> L[Classifier MLP<br/>128 → 64 → 32 → 1]
-    L --> N[Depressed / Not Depressed]
-```
-
-**Audio branch** (25 → 64): `Linear(25→128) → BatchNorm → ELU → Dropout(0.3) → Linear(128→64) → BatchNorm → ELU → Dropout(0.3)`
-
-**Visual branch** (136 → 64): `Linear(136→256) → BatchNorm → ELU → Dropout(0.3) → Linear(256→128) → BatchNorm → ELU → Dropout(0.3) → Linear(128→64) → BatchNorm → ELU → Dropout(0.3)`
-
-**Gating mechanism:**
-
-```
-gate = Sigmoid(Linear(Concat(audio_embedding, visual_embedding)))
-combined = Concat([audio_embedding * gate, visual_embedding * (1 - gate), gender, duration])
-```
-
-**Classifier** (66 → 1): `Linear(66→128) → BN → ELU → Dropout(0.4) → Linear(128→64) → BN → ELU → Dropout(0.3) → Linear(64→32) → BN → ELU → Dropout(0.2) → Linear(32→1) → Sigmoid`
+[![Architecture diagram](https://gitdiagram.com/diagram-badge.svg)](https://gitdiagram.com/najmarazzaq761/fyp?utm_source=readme&utm_medium=badge)
 
 #### Training configuration
 
